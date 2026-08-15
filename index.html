@@ -6,7 +6,252 @@
   <title>Livraria online</title>
   <meta name="author" content="Professor Sagah" />
   <meta name="Keywords" content="Livros, livros digitais, audiolivros" />
-  <link rel="stylesheet" href="estilos/estilo.css" />
+  <style>
+    :root {
+      --papel: #f6f0e6;
+      --papel-escuro: #ebe3d4;
+      --tinta: #2c1a12;
+      --tinta-suave: #5c4336;
+      --vinho: #7a2e24;
+      --vinho-destaque: #5e221b;
+      --dourado: #c4a35a;
+      --capa: #fffaf3;
+      --sombra: 0 10px 28px rgba(44, 26, 18, 0.12);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 48px 20px 64px;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--tinta);
+      background: radial-gradient(circle at top, #fff8ee 0%, var(--papel) 55%, var(--papel-escuro) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: 0.4px;
+      text-align: center;
+    }
+
+    h1::after {
+      content: "";
+      display: block;
+      width: 72px;
+      height: 3px;
+      margin: 14px auto 0;
+      background: var(--dourado);
+      border-radius: 2px;
+    }
+
+    p {
+      margin: 0 0 28px;
+      text-align: center;
+    }
+
+    a {
+      color: var(--vinho);
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 2px solid var(--dourado);
+      padding-bottom: 2px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    a:hover,
+    a:focus-visible {
+      color: var(--vinho-destaque);
+      border-color: var(--vinho);
+    }
+
+    .instrucao,
+    .status,
+    .aviso {
+      max-width: 520px;
+      color: var(--tinta-suave);
+      line-height: 1.45;
+    }
+
+    .status {
+      font-weight: 700;
+      color: var(--vinho);
+    }
+
+    .aviso {
+      background: var(--capa);
+      border: 1px dashed #d7c7ae;
+      border-radius: 6px;
+      padding: 16px;
+    }
+
+    .lista-livros {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      width: min(100%, 520px);
+      display: grid;
+      gap: 12px;
+    }
+
+    .lista-livros li {
+      background: var(--capa);
+      border: 1px solid #e4d8c4;
+      border-left: 8px solid var(--vinho);
+      border-radius: 6px;
+      box-shadow: var(--sombra);
+      padding: 16px 18px;
+      font-size: 1.15rem;
+      color: var(--tinta-suave);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-left-color 0.15s ease;
+    }
+
+    body[data-pagina="biblioteca"] .lista-livros li {
+      cursor: pointer;
+    }
+
+    body[data-pagina="biblioteca"] .lista-livros li:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(44, 26, 18, 0.16);
+    }
+
+    .lista-livros li.selecionado {
+      border-left-color: var(--dourado);
+      background: #fff4dc;
+    }
+
+    .lista-livros li.selecionado::after {
+      content: " favorito";
+      color: var(--vinho);
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+
+    .painel-confirmacao {
+      width: min(100%, 520px);
+      margin-top: 28px;
+      padding: 18px;
+      background: var(--capa);
+      border: 1px solid #e4d8c4;
+      border-radius: 8px;
+      box-shadow: var(--sombra);
+      text-align: center;
+    }
+
+    .painel-confirmacao p {
+      margin: 0 0 14px;
+      color: var(--tinta-suave);
+    }
+
+    button,
+    .botao {
+      display: inline-block;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 2px solid var(--vinho);
+      background: var(--vinho);
+      color: #fffaf3;
+      text-decoration: none;
+    }
+
+    button:hover,
+    button:focus-visible,
+    .botao:hover,
+    .botao:focus-visible {
+      background: var(--vinho-destaque);
+      border-color: var(--vinho-destaque);
+      color: #fffaf3;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+
+    .dialogo {
+      width: min(92vw, 460px);
+      border: 1px solid #e4d8c4;
+      border-radius: 10px;
+      padding: 24px;
+      background: var(--capa);
+      color: var(--tinta);
+      box-shadow: var(--sombra);
+    }
+
+    .dialogo::backdrop {
+      background: rgba(44, 26, 18, 0.45);
+    }
+
+    .dialogo h2 {
+      margin: 0 0 10px;
+      text-align: center;
+    }
+
+    .dialogo p {
+      margin: 0 0 16px;
+    }
+
+    .lista-revisao {
+      list-style: none;
+      margin: 0 0 18px;
+      padding: 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .lista-revisao li {
+      background: #fff8ee;
+      border-left: 6px solid var(--dourado);
+      padding: 10px 12px;
+      border-radius: 4px;
+    }
+
+    .lista-revisao li::before {
+      content: "✓ ";
+      color: var(--vinho);
+      font-weight: 700;
+    }
+
+    .sucesso {
+      font-weight: 700;
+      color: var(--vinho);
+    }
+
+    .dialogo__acoes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    #btn-continuar-escolhendo {
+      background: transparent;
+      color: var(--vinho);
+    }
+
+    #btn-continuar-escolhendo:hover,
+    #btn-continuar-escolhendo:focus-visible {
+      background: #f4e6d4;
+      color: var(--vinho-destaque);
+    }
+
+    a.botao {
+      border-bottom: 2px solid var(--vinho);
+    }
+  </style>
 </head>
 <body data-pagina="favoritos">
   <h1>Livros favoritos</h1>
@@ -31,10 +276,235 @@
     <div class="dialogo__acoes">
       <button type="button" id="btn-continuar-escolhendo">Continuar escolhendo</button>
       <button type="button" id="btn-confirmar">Confirmar títulos</button>
-      <a id="btn-ver-favoritos" class="botao botao--principal" href="index.html" hidden>Ver meus favoritos</a>
+      <a id="btn-ver-favoritos" class="botao" href="index.html" hidden>Ver meus favoritos</a>
     </div>
   </dialog>
 
-  <script src="scripts/principal.js"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      var CHAVE_STORAGE = "livraria-online-favoritos";
+      var pagina = document.body.getAttribute("data-pagina");
+      var listaLivros = document.getElementById("lista-livros");
+      var avisoVazio = document.getElementById("aviso-vazio");
+      var statusFavoritos = document.getElementById("status-favoritos");
+      var resumoEscolhas = document.getElementById("resumo-escolhas");
+      var btnRevisar = document.getElementById("btn-revisar");
+      var dialogo = document.getElementById("dialogo-confirmacao");
+      var listaRevisao = document.getElementById("lista-revisao");
+      var dialogoTitulo = document.getElementById("dialogo-titulo");
+      var dialogoTexto = document.getElementById("dialogo-texto");
+      var dialogoSucesso = document.getElementById("dialogo-sucesso");
+      var btnContinuar = document.getElementById("btn-continuar-escolhendo");
+      var btnConfirmar = document.getElementById("btn-confirmar");
+      var btnVerFavoritos = document.getElementById("btn-ver-favoritos");
+
+      function estadoPadrao() {
+        return { titulos: [], confirmado: false };
+      }
+
+      function lerEstado() {
+        try {
+          var bruto = localStorage.getItem(CHAVE_STORAGE);
+          if (!bruto) {
+            return estadoPadrao();
+          }
+          var dados = JSON.parse(bruto);
+          if (!dados || !Array.isArray(dados.titulos)) {
+            return estadoPadrao();
+          }
+          return {
+            titulos: dados.titulos,
+            confirmado: Boolean(dados.confirmado)
+          };
+        } catch (erro) {
+          return estadoPadrao();
+        }
+      }
+
+      function salvarEstado(estado) {
+        localStorage.setItem(CHAVE_STORAGE, JSON.stringify(estado));
+      }
+
+      function titulosSelecionadosNaPagina() {
+        var itens = listaLivros.querySelectorAll("li.selecionado");
+        var titulos = [];
+        itens.forEach(function (item) {
+          titulos.push(item.textContent.trim());
+        });
+        return titulos;
+      }
+
+      function atualizarResumo(estado) {
+        var quantidade = estado.titulos.length;
+
+        if (quantidade === 0) {
+          resumoEscolhas.textContent = "Nenhum livro selecionado.";
+          btnRevisar.disabled = true;
+          return;
+        }
+
+        btnRevisar.disabled = false;
+
+        if (quantidade === 1) {
+          resumoEscolhas.textContent = estado.confirmado
+            ? "1 título confirmado: " + estado.titulos[0] + "."
+            : "1 título selecionado. Revise e confirme para garantir a escolha.";
+          return;
+        }
+
+        resumoEscolhas.textContent = estado.confirmado
+          ? quantidade + " títulos confirmados."
+          : quantidade + " títulos selecionados. Revise e confirme para garantir as escolhas.";
+      }
+
+      function atualizarStatus(estado) {
+        if (!statusFavoritos) {
+          return;
+        }
+
+        if (estado.titulos.length === 0) {
+          statusFavoritos.textContent = "";
+          return;
+        }
+
+        statusFavoritos.textContent = estado.confirmado
+          ? "Estes são os favoritos que você confirmou."
+          : "Estas escolhas ainda não foram confirmadas. Revise os títulos e confirme para não ter dúvida.";
+      }
+
+      function montarListaFavoritos(estado) {
+        listaLivros.innerHTML = "";
+
+        estado.titulos.forEach(function (titulo) {
+          var item = document.createElement("li");
+          item.className = "selecionado";
+          item.textContent = titulo;
+          listaLivros.appendChild(item);
+        });
+
+        if (avisoVazio) {
+          avisoVazio.hidden = estado.titulos.length > 0;
+        }
+      }
+
+      function marcarLivrosDaBiblioteca(estado) {
+        var itens = listaLivros.querySelectorAll("li");
+        itens.forEach(function (item) {
+          var titulo = item.textContent.trim();
+          if (estado.titulos.indexOf(titulo) !== -1) {
+            item.classList.add("selecionado");
+          } else {
+            item.classList.remove("selecionado");
+          }
+        });
+      }
+
+      function preencherRevisao(titulos) {
+        listaRevisao.innerHTML = "";
+        titulos.forEach(function (titulo) {
+          var item = document.createElement("li");
+          item.textContent = titulo;
+          listaRevisao.appendChild(item);
+        });
+      }
+
+      function mostrarModoRevisao(estado) {
+        dialogoTitulo.textContent = "Confirme seus favoritos";
+        dialogoTexto.hidden = false;
+        dialogoSucesso.hidden = true;
+        btnContinuar.hidden = false;
+        btnContinuar.textContent = "Continuar escolhendo";
+        btnConfirmar.hidden = false;
+        btnVerFavoritos.hidden = true;
+        preencherRevisao(estado.titulos);
+        btnConfirmar.disabled = estado.titulos.length === 0;
+      }
+
+      function mostrarModoSucesso(estado) {
+        dialogoTitulo.textContent = "Escolhas confirmadas";
+        dialogoTexto.hidden = true;
+        dialogoSucesso.hidden = false;
+        btnConfirmar.hidden = true;
+        preencherRevisao(estado.titulos);
+
+        if (pagina === "biblioteca") {
+          btnContinuar.hidden = true;
+          btnVerFavoritos.hidden = false;
+        } else {
+          btnContinuar.textContent = "Fechar";
+          btnContinuar.hidden = false;
+          btnVerFavoritos.hidden = true;
+        }
+      }
+
+      function abrirDialogo() {
+        var estado = lerEstado();
+        mostrarModoRevisao(estado);
+        if (typeof dialogo.showModal === "function") {
+          dialogo.showModal();
+        } else {
+          dialogo.setAttribute("open", "");
+        }
+      }
+
+      function fecharDialogo() {
+        if (typeof dialogo.close === "function") {
+          dialogo.close();
+        } else {
+          dialogo.removeAttribute("open");
+        }
+      }
+
+      if (pagina === "biblioteca") {
+        marcarLivrosDaBiblioteca(lerEstado());
+
+        listaLivros.addEventListener("click", function (evento) {
+          var item = evento.target.closest("li");
+          if (!item || !listaLivros.contains(item)) {
+            return;
+          }
+
+          item.classList.toggle("selecionado");
+
+          var estado = {
+            titulos: titulosSelecionadosNaPagina(),
+            confirmado: false
+          };
+          salvarEstado(estado);
+          atualizarResumo(estado);
+        });
+      }
+
+      if (pagina === "favoritos") {
+        montarListaFavoritos(lerEstado());
+        atualizarStatus(lerEstado());
+      }
+
+      atualizarResumo(lerEstado());
+
+      btnRevisar.addEventListener("click", function () {
+        abrirDialogo();
+      });
+
+      btnContinuar.addEventListener("click", function () {
+        fecharDialogo();
+      });
+
+      btnConfirmar.addEventListener("click", function () {
+        var estado = lerEstado();
+        if (estado.titulos.length === 0) {
+          return;
+        }
+
+        estado.confirmado = true;
+        salvarEstado(estado);
+        atualizarResumo(estado);
+        atualizarStatus(estado);
+        mostrarModoSucesso(estado);
+      });
+    })();
+  </script>
 </body>
 </html>
