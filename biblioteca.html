@@ -3,21 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Livraria online</title>
+  <title>Biblioteca — Livraria online</title>
   <meta name="author" content="Professor Sagah" />
   <meta name="Keywords" content="Livros, livros digitais, audiolivros" />
   <link rel="stylesheet" href="estilos/estilo.css" />
 </head>
-<body data-pagina="favoritos">
-  <h1>Livros favoritos</h1>
+<body data-pagina="biblioteca">
+  <h1>Biblioteca</h1>
   <p>
-    <a href="biblioteca.html">Ver todos os livros</a>
+    <a href="index.html">Voltar aos favoritos</a>
   </p>
-  <p id="status-favoritos" class="status"></p>
-  <ul class="lista-livros" id="lista-livros"></ul>
-  <p id="aviso-vazio" class="aviso" hidden>
-    Você ainda não escolheu nenhum favorito. Abra a biblioteca, toque nos títulos e depois confirme.
-  </p>
+  <p class="instrucao">Toque em um livro para marcar ou desmarcar. As escolhas ficam salvas ao voltar. Use o botão abaixo para revisar e confirmar os títulos.</p>
+  <ul class="lista-livros" id="lista-livros">
+    <li>Código Limpo</li>
+    <li>Dom Casmurro</li>
+    <li>O Pequeno Príncipe</li>
+    <li>Capitães da Areia</li>
+    <li>A Revolução dos Bichos</li>
+    <li>A Menina que Roubava Livros</li>
+    <li>O Alquimista</li>
+    <li>Memórias Póstumas de Brás Cubas</li>
+    <li>O Hobbit</li>
+    <li>Harry Potter e a Pedra Filosofal</li>
+  </ul>
   <section class="painel-confirmacao">
     <p id="resumo-escolhas"></p>
     <button type="button" id="btn-revisar">Revisar e confirmar</button>
@@ -27,7 +35,7 @@
     <h2 id="dialogo-titulo">Confirme seus favoritos</h2>
     <p id="dialogo-texto">Revise os títulos abaixo. Confirme só se esta for a lista certa.</p>
     <ul id="lista-revisao" class="lista-revisao"></ul>
-    <p id="dialogo-sucesso" class="sucesso" hidden>Pronto. Seus favoritos foram confirmados e vão continuar aqui quando você voltar.</p>
+    <p id="dialogo-sucesso" class="sucesso" hidden>Pronto. Seus favoritos foram confirmados e vão aparecer na página de favoritos.</p>
     <div class="dialogo__acoes">
       <button type="button" id="btn-continuar-escolhendo">Continuar escolhendo</button>
       <button type="button" id="btn-confirmar">Confirmar títulos</button>
