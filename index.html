@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meus contatos — Manipulando DOM</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="app__header">
+      <h1>Meus contatos</h1>
+    </header>
+
+    <section class="app__theme" aria-label="Seleção de tema">
+      <span class="app__theme-label">Tema:</span>
+      <label>
+        <input type="radio" name="tema" value="claro" checked />
+        Claro
+      </label>
+      <label>
+        <input type="radio" name="tema" value="escuro" />
+        Escuro
+      </label>
+    </section>
+
+    <form id="form-contato" class="app__form" novalidate>
+      <div class="campo">
+        <label for="nome">Nome:</label>
+        <input
+          type="text"
+          id="nome"
+          name="nome"
+          autocomplete="name"
+          maxlength="80"
+          placeholder="Digite o nome"
+        />
+      </div>
+
+      <div class="campo">
+        <label for="telefone">Telefone:</label>
+        <input
+          type="tel"
+          id="telefone"
+          name="telefone"
+          autocomplete="tel"
+          maxlength="15"
+          placeholder="(00)00000-0000"
+        />
+      </div>
+
+      <div class="campo">
+        <label for="tipo">Tipo de contato:</label>
+        <select id="tipo" name="tipo">
+          <option value="">Selecione...</option>
+          <option value="Parente">Parente</option>
+          <option value="Amigo">Amigo</option>
+          <option value="Colega de trabalho">Colega de trabalho</option>
+          <option value="Outro">Outro</option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="email">E-mail: <span class="opcional">(opcional)</span></label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          autocomplete="email"
+          maxlength="120"
+          placeholder="exemplo@email.com"
+        />
+      </div>
+
+      <p id="mensagem-erro" class="mensagem-erro" hidden role="alert"></p>
+
+      <button type="submit" id="btn-adicionar" class="btn btn--adicionar">
+        Adicionar
+      </button>
+    </form>
+
+    <section class="app__lista" aria-label="Lista de contatos">
+      <ul id="lista-contatos"></ul>
+    </section>
+
+    <footer class="app__footer">
+      <button type="button" id="btn-limpar" class="btn btn--limpar">
+        Limpar lista
+      </button>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+/* ===== Variáveis — tema claro (padrão) ===== */
+:root {
+  --cor-fundo: #f5f5f5;
+  --cor-app: #ffffff;
+  --cor-texto: #222222;
+  --cor-borda: #c8c8c8;
+  --cor-borda-foco: #4a90d9;
+  --cor-cabecalho: #2e8b57;
+  --cor-botao-adicionar: #2e8b57;
+  --cor-botao-adicionar-hover: #247048;
+  --cor-botao-limpar: #c0392b;
+  --cor-botao-limpar-hover: #a93226;
+  --cor-erro: #c0392b;
+  --cor-lista-borda: #dddddd;
+  --cor-input-fundo: #ffffff;
+  --sombra: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== Tema escuro ===== */
+body.tema-escuro {
+  --cor-fundo: #1a1a1a;
+  --cor-app: #2b2b2b;
+  --cor-texto: #f0f0f0;
+  --cor-borda: #555555;
+  --cor-borda-foco: #6db3f2;
+  --cor-cabecalho: #3cb371;
+  --cor-botao-adicionar: #3cb371;
+  --cor-botao-adicionar-hover: #2e8b57;
+  --cor-botao-limpar: #e74c3c;
+  --cor-botao-limpar-hover: #c0392b;
+  --cor-erro: #ff6b6b;
+  --cor-lista-borda: #444444;
+  --cor-input-fundo: #3a3a3a;
+  --sombra: 0 1px 6px rgba(0, 0, 0, 0.45);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 32px 16px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* ===== Container principal ===== */
+.app {
+  width: 100%;
+  max-width: 420px;
+  background: var(--cor-app);
+  border: 1px solid var(--cor-borda);
+  box-shadow: var(--sombra);
+  padding: 0 0 16px;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.app__header {
+  background: var(--cor-cabecalho);
+  color: #ffffff;
+  padding: 14px 16px;
+  text-align: center;
+}
+
+.app__header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+/* ===== Tema ===== */
+.app__theme {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 14px 16px 4px;
+}
+
+.app__theme-label {
+  font-weight: 700;
+}
+
+.app__theme label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ===== Formulário ===== */
+.app__form {
+  padding: 8px 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.campo label {
+  font-weight: 700;
+}
+
+.opcional {
+  font-weight: 400;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.campo input,
+.campo select {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--cor-texto);
+  background: var(--cor-input-fundo);
+  border: 1px solid var(--cor-borda);
+  border-radius: 2px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.campo input:focus,
+.campo select:focus {
+  border-color: var(--cor-borda-foco);
+  box-shadow: 0 0 0 2px rgba(74, 144, 217, 0.25);
+}
+
+.campo input.campo-invalido,
+.campo select.campo-invalido {
+  border-color: var(--cor-erro);
+}
+
+.mensagem-erro {
+  margin: 0;
+  color: var(--cor-erro);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ===== Botões ===== */
+.btn {
+  display: inline-block;
+  padding: 8px 18px;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 700;
+  color: #ffffff;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.05s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--adicionar {
+  align-self: flex-start;
+  background: var(--cor-botao-adicionar);
+  margin-top: 4px;
+}
+
+.btn--adicionar:hover {
+  background: var(--cor-botao-adicionar-hover);
+}
+
+.btn--limpar {
+  background: var(--cor-botao-limpar);
+}
+
+.btn--limpar:hover {
+  background: var(--cor-botao-limpar-hover);
+}
+
+/* ===== Lista de contatos ===== */
+.app__lista {
+  padding: 8px 16px 0;
+}
+
+#lista-contatos {
+  list-style: disc;
+  margin: 0;
+  padding: 0 0 0 22px;
+}
+
+#lista-contatos:empty {
+  display: none;
+}
+
+#lista-contatos li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--cor-lista-borda);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+#lista-contatos li:last-child {
+  border-bottom: none;
+}
+
+.contato-email {
+  display: block;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
+/* ===== Rodapé ===== */
+.app__footer {
+  padding: 12px 16px 0;
+}
